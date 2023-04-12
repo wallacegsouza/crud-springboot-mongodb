@@ -21,3 +21,14 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+/data/*.wt
+/data/*.lock
+/data/*.turtle
+/data/*.bson
+/data/WiredTiger
+/data/.mongodb
+/data/journal
+/data/.bash_history
+/data/diagnostic.data
+/data/.config

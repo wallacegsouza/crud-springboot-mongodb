@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  credsbm:
+    build:
+      context: ./crudsbm
+      dockerfile: Dockerfile
+    container_name: crudsbm
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo-server
+    environment:
+      MONGO_INITDB_DATABASE: crudsbmdb
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: MongoDB2019!
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+    networks:
+      - mongo-compose-network
+
+
+networks: 
+    mongo-compose-network:
+      driver: bridge
