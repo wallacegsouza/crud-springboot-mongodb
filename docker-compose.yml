@@ -2,23 +2,33 @@ version: '3'
 
 services:
 
-  credsbm:
-    build:
-      context: ./crudsbm
-      dockerfile: Dockerfile
+  crudsbm:
+    image: gradle:jdk17-alpine
     container_name: crudsbm
+    volumes:
+      - ./crudsbm:/home/gradle
+    command: gradle bootRun
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://root:MongoDB2019!@mongo:27017/crudsbmdb?authSource=admin&authMechanism=SCRAM-SHA-1
+      - SPRING_DATA_MONGODB_DATABASE=crudsbmdb
+      - SPRING_DATA_MONGODB_AUTO-INDEX-CREATION=true
+      - SPRING_DATA_MONGODB_USERNAME=root
+      - SPRING_DATA_MONGODB_PASSWORD=MongoDB2019!
+
     ports:
       - 8080:8080
     depends_on:
       - mongo
+    networks:
+      - mongo-compose-network
 
   mongo:
     image: mongo:latest
     container_name: mongo-server
     environment:
-      MONGO_INITDB_DATABASE: crudsbmdb
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: MongoDB2019!
+      - MONGO_INITDB_DATABASE=crudsbmdb
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=MongoDB2019!
     ports:
       - 27017:27017
     volumes:

@@ -4,11 +4,16 @@
 
 ## Mongo Express
 
+Para rodar a aplicação
+````powershell
+> docker-compose up --build
+````
+
 Para facilitar vc pode rodar o mongo express dessa forma:
 
 ````powershell
 #powershell
-> docker run -it --rm ` 
+> docker run -it --rm `
 --network crud-springboot-mongodb_mongo-compose-network `
 --name mongo-express `
 -p 8081:8081 `
